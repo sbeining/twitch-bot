@@ -29,7 +29,9 @@ class PokemonListener extends BaseMessageListener
         if (preg_match('/!pokemon (.*)/', $text, $matches)) {
             $name = strtolower($matches[1]);
             try {
-                $this->printPokemon($channel, $this->fetchPokemon($name));
+                $species = $this->fetchSpecies($name);
+                $pokemon = $this->getPokemon($species);
+                $this->printPokemon($channel, $species, $pokemon);
             } catch (RequestException $e) {
                 $this->chat->sendMessage($channel, sprintf("Sorry, I don't know about %s", ucfirst($name)));
             }
@@ -64,13 +66,28 @@ class PokemonListener extends BaseMessageListener
     }
 
     /**
+     * @param array $species
+     *
+     * @throws RequestException
+     *
+     * @return array
+     */
+    private function getPokemon($species) {
+        foreach ($species['varieties'] as $variety) {
+            if ($variety['is_default']) {
+                return $this->fetchPokemon($variety['pokemon']['name']);
+            }
+        }
+    }
+
+    /**
      * @param string $channel
+     * @param array $species
      * @param array $pokemon
      *
      * @return void
      */
-    private function printPokemon($channel, $pokemon) {
-        $species = $this->fetchSpecies($pokemon['id']);
+    private function printPokemon($channel, $species, $pokemon) {
         $nameEn = $this->getName($species, 'en');
 
         $text = sprintf("%s, the %s. It is %s type.",
