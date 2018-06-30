@@ -26,7 +26,17 @@ class PokemonListener extends BaseMessageListener
     {
         $this->client = new Client(['base_uri' => 'https://pokeapi.co/api/v2/']);
 
-        if (preg_match('/!pokemon (.*)/', $text, $matches)) {
+        if (preg_match('/!pokemon (.*) (.*)?/', $text, $matches)) {
+            $name = strtolower($matches[1]);
+            $form = strtolower($matches[2]);
+            try {
+                $species = $this->fetchSpecies($name);
+                $pokemon = $this->getPokemon($species, "{$name}-{$form}");
+                $this->printPokemon($channel, $species, $pokemon);
+            } catch (RequestException $e) {
+                $this->chat->sendMessage($channel, sprintf("Sorry, I don't know about %s", ucfirst($name)));
+            }
+        } elseif (preg_match('/!pokemon (.*)?/', $text, $matches)) {
             $name = strtolower($matches[1]);
             try {
                 $species = $this->fetchSpecies($name);
@@ -66,13 +76,31 @@ class PokemonListener extends BaseMessageListener
     }
 
     /**
-     * @param array $species
+     * @param string $name
      *
      * @throws RequestException
      *
      * @return array
      */
-    private function getPokemon($species) {
+    private function fetchForm($name) {
+        $res = $this->client->get("pokemon-form/{$name}");
+
+        return json_decode($res->getBody(), true);
+    }
+
+    /**
+     * @param array $species
+     * @param string|null $form
+     *
+     * @throws RequestException
+     *
+     * @return array
+     */
+    private function getPokemon($species, $form = null) {
+        if ($form) {
+            return $this->fetchPokemon($form);
+        }
+
         foreach ($species['varieties'] as $variety) {
             if ($variety['is_default']) {
                 return $this->fetchPokemon($variety['pokemon']['name']);
@@ -88,10 +116,26 @@ class PokemonListener extends BaseMessageListener
      * @return void
      */
     private function printPokemon($channel, $species, $pokemon) {
+        $forms = [];
+
+        foreach ($species['varieties'] as $variety) {
+            if ($variety['pokemon']['name'] !== $pokemon['name']) {
+                $shortForm = str_replace("{$species['name']}-", '', $variety['pokemon']['name']);
+                $forms[] = ucfirst($shortForm);
+            }
+        }
+
         $nameEn = $this->getName($species, 'en');
 
+        if (!$pokemon['is_default']) {
+            $form = $this->fetchForm($pokemon['name']);
+            $name = $this->getName($form, 'en');
+        } else {
+            $name = $nameEn;
+        }
+
         $text = sprintf("%s, the %s. It is %s type.",
-            $nameEn,
+            $name,
             $this->getGenus($species, 'en'),
             $this->enumerate($this->getType($pokemon))
         );
@@ -110,6 +154,10 @@ class PokemonListener extends BaseMessageListener
             );
         } else {
             $text .= ' It is perfectly balanced.';
+        }
+
+        if (!empty($forms)) {
+            $text .= sprintf(' It has different forms: %s.', $this->enumerate($forms));
         }
 
         $nameDe = $this->getName($species, 'de');
