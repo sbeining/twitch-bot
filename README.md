@@ -58,3 +58,6 @@ Command | Example | Category | Description
 `!undo_death` | | Death Counter | Decrements the death counter by one
 `!set_deaths :number:` | `!set_deaths 666`| Death Counter | Sets the death counter a specific number
 `!deaths` | | Death Counter | Outputs the death counter
+`!vanquish :name:` | `!vanquish The Last Giant` | Bosskill Tracker | Adds the :name: to the list of killed bosses
+`!unvanquish :name:` | `!unvanquish The Last Giant` | Bosskill Tracker | Removes the :name: from the list of killed bosses
+`!vanquished:` | | Bosskill Tracker | Outputs the list of killed bosses
