@@ -56,4 +56,32 @@ abstract class BaseMessageListener implements ListenerInterface
      * @return void
      */
     abstract protected function handleMessage($user, $channel, $text, Message $message);
+
+    /**
+     * @param array $words
+     *
+     * @return string
+     */
+    protected function enumerate(array $words): string {
+        $result = '';
+        $cnt = 0;
+        $max = count($words);
+
+        foreach ($words as $name) {
+            $result .= "{$name}";
+
+            $cnt++;
+
+            if ($cnt === $max) {
+                continue;
+            } else if ($cnt === $max - 1) {
+                $result .= ' and ';
+            } else {
+                $result .= ', ';
+            }
+        }
+
+        return $result;
+    }
+
 }
