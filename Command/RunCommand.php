@@ -5,6 +5,7 @@ namespace TwitchBot\Command;
 require_once __DIR__.'/../Listener/ConversationListener.php';
 require_once __DIR__.'/../Listener/LogListener.php';
 require_once __DIR__.'/../Listener/PokemonListener.php';
+require_once __DIR__.'/../Listener/DeathCounterListener.php';
 require_once __DIR__.'/../Listener/PingPongListener.php';
 require_once __DIR__.'/../Util/Chat.php';
 require_once __DIR__.'/../Util/EventManager.php';
@@ -16,6 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use TwitchBot\Listener\ConversationListener;
 use TwitchBot\Listener\LogListener;
 use TwitchBot\Listener\PokemonListener;
+use TwitchBot\Listener\DeathCounterListener;
 use TwitchBot\Listener\PingPongListener;
 use TwitchBot\Util\Chat;
 use TwitchBot\Util\EventManager;
@@ -52,6 +54,7 @@ class RunCommand extends Command
         $eventManager->addListener(new ConversationListener($chat));
         $eventManager->addListener(new LogListener($chat));
         $eventManager->addListener(new PokemonListener($chat));
+        $eventManager->addListener(new DeathCounterListener($chat));
         $eventManager->addListener(new PingPongListener($chat));
 
         $token = $input->getArgument('token');

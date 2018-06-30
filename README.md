@@ -54,3 +54,7 @@ Command | Example | Category | Description
 `Hi @:bot_username:` | Hi @AI_Yekara | Conversation | Greets the user back (the :bot_username: has to be replaced with the username of the bot)
 `!pokemon :pokemon_name:` | `!pokemon farfetchd` | Pokémon | Outputs a short description of the pokémon
 `!pokemon :pokemon_name:` `:pokemon_forme:` | `!pokemon shayimn sky` | Pokémon | If a pokémon has more than one forme it can be specified this way
+`!you_died` | | Death Counter | Increments the death counter by one
+`!undo_death` | | Death Counter | Decrements the death counter by one
+`!set_deaths :number:` | `!set_deaths 666`| Death Counter | Sets the death counter a specific number
+`!deaths` | | Death Counter | Outputs the death counter
