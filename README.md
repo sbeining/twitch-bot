@@ -54,6 +54,13 @@ Command | Example | Category | Description
 `Hi @:bot_username:` | Hi @AI_Yekara | Conversation | Greets the user back (the :bot_username: has to be replaced with the username of the bot)
 `!pokemon :pokemon_name:` | `!pokemon farfetchd` | Pokémon | Outputs a short description of the pokémon
 `!pokemon :pokemon_name:` `:pokemon_forme:` | `!pokemon shayimn sky` | Pokémon | If a pokémon has more than one forme it can be specified this way
+`!poketype :type:` | `!poketype fire` | Pokémon | Describes every interaction (resistances, weaknesses, immunities) with this type
+`!poketype :type: vs` | `!poketype flying vs` | Pokémon | Describes offensive interactions with this type
+`!poketype :type: against`| `!poketype flying against` | Pokémon | Alias
+`!poketype vs :type:` | `!poketype vs ice` | Pokémon | Describes defensive interactions with this type
+`!poketype against :type:` | `!poketype against ice` | Pokémon | Alias
+`!poketype :type: vs :type:` | `!poketype steel vs fairy` | Pokémon | Describes how the two types interact with each other
+`!poketype :type: against :type:` | `!poketype steel against fairy` | Pokémon | Alias
 `!you_died` | | Death Counter | Increments the death counter by one
 `!undo_death` | | Death Counter | Decrements the death counter by one
 `!set_deaths :number:` | `!set_deaths 666`| Death Counter | Sets the death counter a specific number
