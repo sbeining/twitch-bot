@@ -45,3 +45,10 @@ project directory and executing:
 Just replace `:oauth_token:` with the generated Token, `:bot_username:` with
 the twitch username of the bot (also the owner of the OAuth Token) and
 :channel: with the channel your bot should be active in.
+
+
+## Available commands
+
+Command | Example | Category | Description
+---|---|---|---
+`Hi @:bot_username:` | Hi @AI_Yekara | Conversation | Greets the user back (the :bot_username: has to be replaced with the username of the bot)
