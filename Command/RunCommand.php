@@ -11,6 +11,7 @@ require_once __DIR__.'/../Listener/BossesKilledListener.php';
 require_once __DIR__.'/../Listener/PingPongListener.php';
 require_once __DIR__.'/../Util/Chat.php';
 require_once __DIR__.'/../Util/EventManager.php';
+require_once __DIR__.'/../Util/Persistence.php';
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,6 +26,7 @@ use TwitchBot\Listener\BossesKilledListener;
 use TwitchBot\Listener\PingPongListener;
 use TwitchBot\Util\Chat;
 use TwitchBot\Util\EventManager;
+use TwitchBot\Util\Persistence;
 
 class RunCommand extends Command
 {
@@ -43,6 +45,8 @@ class RunCommand extends Command
         ->addArgument('token', InputArgument::REQUIRED, 'OAuthToken')
         ->addArgument('nick', InputArgument::REQUIRED, 'Nickname')
         ->addArgument('channel', InputArgument::REQUIRED, 'Channel');
+
+      $this->persistence = new Persistence(__DIR__.'/../db.json');
     }
 
     /**
@@ -59,7 +63,7 @@ class RunCommand extends Command
         $eventManager->addListener(new LogListener($chat));
         $eventManager->addListener(new PokemonListener($chat));
         $eventManager->addListener(new PokemonTypeListener($chat));
-        $eventManager->addListener(new DeathCounterListener($chat));
+        $eventManager->addListener(new DeathCounterListener($chat, $this->persistence));
         $eventManager->addListener(new BossesKilledListener($chat));
         $eventManager->addListener(new PingPongListener($chat));
 
