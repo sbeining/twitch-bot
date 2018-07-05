@@ -2,15 +2,77 @@
 
 namespace TwitchBot\Listener;
 
+require_once __DIR__.'/../Util/Chat.php';
 require_once __DIR__.'/../Util/Message.php';
+require_once __DIR__.'/../Util/Persistence.php';
 require_once __DIR__.'/BaseMessageListener.php';
 
+use TwitchBot\Util\Chat;
 use TwitchBot\Util\Message;
+use TwitchBot\Util\Persistence;
 
 class BossesKilledListener extends BaseMessageListener
 {
     /** @var array */
     private $vanquished = [];
+
+    /**
+     * @param Chat $chat
+     * @param Persistence $persistence
+     *
+     * @return void
+     */
+    public function __construct(Chat $chat, Persistence $persistence)
+    {
+        $this->chat = $chat;
+        $this->persistence = $persistence;
+    }
+
+    /**
+     * @param string $channel
+     *
+     * @return array
+     */
+    private function load($channel)
+    {
+        $data = $this->persistence->getData();
+
+        if (!isset($data[$channel])) {
+            return [];
+        }
+
+        if (!isset($data[$channel]['bosses_killed'])) {
+            return [];
+        }
+
+        $vanquished = $data[$channel]['bosses_killed']['vanquished'];
+
+        return array_combine($vanquished, $vanquished);
+    }
+
+    /**
+     * @param string $channel
+     * @param array $vanquished
+     *
+     * @return void
+     */
+    private function save($channel, $vanquished)
+    {
+        $data = $this->persistence->getData();
+
+        if (!isset($data[$channel])) {
+            $data[$channel] = [];
+        }
+
+        if (!isset($data[$channel]['bosses_killed'])) {
+            $data[$channel]['bosses_killed'] = [];
+        }
+
+        $data[$channel]['bosses_killed']['vanquished'] = array_values($vanquished);
+
+        $this->persistence->setData($data);
+        $this->persistence->save();
+    }
 
     /**
      * @param string $user
@@ -22,6 +84,8 @@ class BossesKilledListener extends BaseMessageListener
      */
     public function handleMessage($user, $channel, $text, Message $message)
     {
+        $this->vanquished = $this->load($channel);
+
         if (preg_match('/!unvanquish (.*)/', $text, $matches)) {
             $name = $matches[1];
             if (isset($this->vanquished[$name])) {
@@ -38,5 +102,7 @@ class BossesKilledListener extends BaseMessageListener
             $vanquishedText = $this->enumerate($this->vanquished);
             $this->chat->sendMessage($channel, "Bosses killed: {$vanquishedText}");
         }
+
+        $this->save($channel, $this->vanquished);
     }
 }

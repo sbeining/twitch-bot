@@ -64,7 +64,7 @@ class RunCommand extends Command
         $eventManager->addListener(new PokemonListener($chat));
         $eventManager->addListener(new PokemonTypeListener($chat));
         $eventManager->addListener(new DeathCounterListener($chat, $this->persistence));
-        $eventManager->addListener(new BossesKilledListener($chat));
+        $eventManager->addListener(new BossesKilledListener($chat, $this->persistence));
         $eventManager->addListener(new PingPongListener($chat));
 
         $token = $input->getArgument('token');
