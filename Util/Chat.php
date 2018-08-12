@@ -2,9 +2,6 @@
 
 namespace TwitchBot\Util;
 
-require_once __DIR__.'/EventManager.php';
-require_once __DIR__.'/Message.php';
-
 use TwitchBot\Util\EventManager;
 use TwitchBot\Util\Message;
 

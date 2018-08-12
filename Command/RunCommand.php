@@ -2,17 +2,6 @@
 
 namespace TwitchBot\Command;
 
-require_once __DIR__.'/../Listener/ConversationListener.php';
-require_once __DIR__.'/../Listener/LogListener.php';
-require_once __DIR__.'/../Listener/PokemonListener.php';
-require_once __DIR__.'/../Listener/PokemonTypeListener.php';
-require_once __DIR__.'/../Listener/DeathCounterListener.php';
-require_once __DIR__.'/../Listener/BossesKilledListener.php';
-require_once __DIR__.'/../Listener/PingPongListener.php';
-require_once __DIR__.'/../Util/Chat.php';
-require_once __DIR__.'/../Util/EventManager.php';
-require_once __DIR__.'/../Util/Persistence.php';
-
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;

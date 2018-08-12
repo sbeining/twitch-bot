@@ -2,8 +2,6 @@
 
 namespace TwitchBot\Util;
 
-require_once __DIR__.'/../Listener/ListenerInterface.php';
-
 use TwitchBot\Listener\ListenerInterface;
 
 class EventManager

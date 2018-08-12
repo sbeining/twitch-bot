@@ -2,7 +2,6 @@
 <?php
 
 require __DIR__.'/../vendor/autoload.php';
-require __DIR__.'/../Command/RunCommand.php';
 
 use Symfony\Component\Console\Application;
 use TwitchBot\Command\RunCommand;

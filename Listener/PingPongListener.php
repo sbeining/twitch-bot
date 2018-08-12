@@ -2,9 +2,6 @@
 
 namespace TwitchBot\Listener;
 
-require_once __DIR__.'/../Util/Chat.php';
-require_once __DIR__.'/ListenerInterface.php';
-
 use TwitchBot\Util\Chat;
 
 class PingPongListener implements ListenerInterface
