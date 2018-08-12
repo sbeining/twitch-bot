@@ -2,19 +2,19 @@
 
 namespace TwitchBot\Listener;
 
-use TwitchBot\Util\Chat;
+use TwitchBot\Util\Chat\ChatInterface;
 
 class PingPongListener implements ListenerInterface
 {
-    /** @var Chat */
+    /** @var ChatInterface */
     private $chat;
 
     /**
-     * @param Chat $chat
+     * @param ChatInterface $chat
      *
      * @return void
      */
-    public function __construct(Chat $chat)
+    public function __construct(ChatInterface $chat)
     {
         $this->chat = $chat;
     }

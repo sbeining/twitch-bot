@@ -13,7 +13,7 @@ use TwitchBot\Listener\PokemonTypeListener;
 use TwitchBot\Listener\DeathCounterListener;
 use TwitchBot\Listener\BossesKilledListener;
 use TwitchBot\Listener\PingPongListener;
-use TwitchBot\Util\Chat;
+use TwitchBot\Util\Chat\Chat;
 use TwitchBot\Util\EventManager;
 use TwitchBot\Util\Persistence;
 

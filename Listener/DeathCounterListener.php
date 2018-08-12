@@ -2,7 +2,7 @@
 
 namespace TwitchBot\Listener;
 
-use TwitchBot\Util\Chat;
+use TwitchBot\Util\Chat\ChatInterface;
 use TwitchBot\Util\Message;
 use TwitchBot\Util\Persistence;
 
@@ -12,12 +12,12 @@ class DeathCounterListener extends BaseMessageListener
     private $count = 0;
 
     /**
-     * @param Chat $chat
+     * @param ChatInterface $chat
      * @param Persistence $persistence
      *
      * @return void
      */
-    public function __construct(Chat $chat, Persistence $persistence)
+    public function __construct(ChatInterface $chat, Persistence $persistence)
     {
         $this->chat = $chat;
         $this->persistence = $persistence;

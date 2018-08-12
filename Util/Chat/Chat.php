@@ -1,11 +1,12 @@
 <?php
 
-namespace TwitchBot\Util;
+namespace TwitchBot\Util\Chat;
 
 use TwitchBot\Util\EventManager;
 use TwitchBot\Util\Message;
+use TwitchBot\Util\Chat\ChatInterface;
 
-class Chat
+class Chat implements ChatInterface
 {
     /** @var \Resource */
     private $socket;

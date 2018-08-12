@@ -2,20 +2,20 @@
 
 namespace TwitchBot\Listener;
 
-use TwitchBot\Util\Chat;
+use TwitchBot\Util\Chat\ChatInterface;
 use TwitchBot\Util\Message;
 
 abstract class BaseMessageListener implements ListenerInterface
 {
-    /** @var Chat */
+    /** @var ChatInterface */
     protected $chat;
 
     /**
-     * @param Chat $chat
+     * @param ChatInterface $chat
      *
      * @return void
      */
-    public function __construct(Chat $chat)
+    public function __construct(ChatInterface $chat)
     {
         $this->chat = $chat;
     }
