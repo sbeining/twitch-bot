@@ -12,6 +12,7 @@ use TwitchBot\Listener\PokemonTypeListener;
 use TwitchBot\Listener\PokemonNatureListener;
 use TwitchBot\Listener\DeathCounterListener;
 use TwitchBot\Listener\BossesKilledListener;
+use TwitchBot\Listener\TodoListener;
 use TwitchBot\Util\Chat\CliChat;
 use TwitchBot\Util\EventManager;
 use TwitchBot\Util\Message;
@@ -51,6 +52,7 @@ class ReplCommand extends Command
         $eventManager->addListener(new PokemonNatureListener($chat));
         $eventManager->addListener(new DeathCounterListener($chat, $this->persistence));
         $eventManager->addListener(new BossesKilledListener($chat, $this->persistence));
+        $eventManager->addListener(new TodoListener($chat, $this->persistence));
 
         $output->writeln('You can test chat commands here. Type "exit" to exit.');
         $helper = $this->getHelper('question');

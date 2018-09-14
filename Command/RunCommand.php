@@ -13,6 +13,7 @@ use TwitchBot\Listener\PokemonTypeListener;
 use TwitchBot\Listener\PokemonNatureListener;
 use TwitchBot\Listener\DeathCounterListener;
 use TwitchBot\Listener\BossesKilledListener;
+use TwitchBot\Listener\TodoListener;
 use TwitchBot\Listener\PingPongListener;
 use TwitchBot\Util\Chat\Chat;
 use TwitchBot\Util\EventManager;
@@ -56,6 +57,7 @@ class RunCommand extends Command
         $eventManager->addListener(new PokemonNatureListener($chat));
         $eventManager->addListener(new DeathCounterListener($chat, $this->persistence));
         $eventManager->addListener(new BossesKilledListener($chat, $this->persistence));
+        $eventManager->addListener(new TodoListener($chat, $this->persistence));
         $eventManager->addListener(new PingPongListener($chat));
 
         $token = $input->getArgument('token');

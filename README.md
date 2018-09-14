@@ -69,3 +69,6 @@ Command | Example | Category | Description
 `!vanquish :name:` | `!vanquish The Last Giant` | Bosskill Tracker | Adds the :name: to the list of killed bosses
 `!unvanquish :name:` | `!unvanquish The Last Giant` | Bosskill Tracker | Removes the :name: from the list of killed bosses
 `!vanquished:` | | Bosskill Tracker | Outputs the list of killed bosses
+`!todos` | | TODO List | Outputs the TODO list every task has a number by which it can be marked as done
+`!add_task :task:` | `!add_task Do the thing!` | TODO List | Add a task to the TODO List
+`!done :task_nr:` | `!done 4` | TODO List | Marks the fourth item on the TODO list as done
