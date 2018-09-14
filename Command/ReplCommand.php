@@ -9,6 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use TwitchBot\Listener\PokemonListener;
 use TwitchBot\Listener\PokemonTypeListener;
+use TwitchBot\Listener\PokemonNatureListener;
 use TwitchBot\Listener\DeathCounterListener;
 use TwitchBot\Listener\BossesKilledListener;
 use TwitchBot\Util\Chat\CliChat;
@@ -47,6 +48,7 @@ class ReplCommand extends Command
         $eventManager = new EventManager();
         $eventManager->addListener(new PokemonListener($chat));
         $eventManager->addListener(new PokemonTypeListener($chat));
+        $eventManager->addListener(new PokemonNatureListener($chat));
         $eventManager->addListener(new DeathCounterListener($chat, $this->persistence));
         $eventManager->addListener(new BossesKilledListener($chat, $this->persistence));
 

@@ -61,6 +61,7 @@ Command | Example | Category | Description
 `!poketype against :type:` | `!poketype against ice` | Pokémon | Alias
 `!poketype :type: vs :type:` | `!poketype steel vs fairy` | Pokémon | Describes how the two types interact with each other
 `!poketype :type: against :type:` | `!poketype steel against fairy` | Pokémon | Alias
+`!pokenature :nature:` | `!pokenature jolly` | Pokémon | Describes what stats are influenced by the nature
 `!you_died` | | Death Counter | Increments the death counter by one
 `!undo_death` | | Death Counter | Decrements the death counter by one
 `!set_deaths :number:` | `!set_deaths 666`| Death Counter | Sets the death counter a specific number
