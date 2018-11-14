@@ -8,6 +8,11 @@ use Symfony\Component\Console\{
     Output\OutputInterface
 };
 
+use TwitchBot\Input\CliInput;
+use TwitchBot\Processor\Processor;
+use TwitchBot\Processor\Module\EchoModule;
+use TwitchBot\Output\CliOutput;
+
 class RunCommand extends Command
 {
     /**
@@ -26,5 +31,14 @@ class RunCommand extends Command
      * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output): void {
+        $in = new CliInput($input, $output, $this->getHelper('question'));
+        $out = new CliOutput($output);
+
+        $processor = new Processor($in, $out);
+        $processor->withModule(new EchoModule());
+
+        while(true) {
+            $processor->process();
+        }
     }
 }
