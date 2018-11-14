@@ -10,7 +10,11 @@ use Symfony\Component\Console\{
 
 use TwitchBot\Input\CliInput;
 use TwitchBot\Processor\Processor;
-use TwitchBot\Processor\Module\EchoModule;
+use TwitchBot\Processor\Module\{
+    PokemonModule,
+    PokemonNatureModule,
+    PokemonTypeModule
+};
 use TwitchBot\Output\CliOutput;
 
 class RunCommand extends Command
@@ -35,7 +39,10 @@ class RunCommand extends Command
         $out = new CliOutput($output);
 
         $processor = new Processor($in, $out);
-        $processor->withModule(new EchoModule());
+        $processor
+            ->withModule(new PokemonModule())
+            ->withModule(new PokemonNatureModule())
+            ->withModule(new PokemonTypeModule());
 
         while(true) {
             $processor->process();
