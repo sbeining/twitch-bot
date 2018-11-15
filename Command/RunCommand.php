@@ -16,6 +16,7 @@ use TwitchBot\Input\{
 };
 use TwitchBot\Processor\Processor;
 use TwitchBot\Processor\Module\{
+    PingPongModule,
     PokemonModule,
     PokemonNatureModule,
     PokemonTypeModule
@@ -63,6 +64,7 @@ class RunCommand extends Command
 
         $processor = new Processor($in, $out);
         $processor
+            ->withModule(new PingPongModule())
             ->withModule(new PokemonModule())
             ->withModule(new PokemonNatureModule())
             ->withModule(new PokemonTypeModule());

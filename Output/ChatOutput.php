@@ -30,6 +30,10 @@ class ChatOutput implements OutputInterface {
     public function tell(string $json): void {
         $data = json_decode($json, true);
 
-        $this->chat->sendMessage($this->channel, $data['content']);
+        if (isset($data['command'])) {
+            $this->chat->send($data['raw']);
+        } else {
+            $this->chat->sendMessage($this->channel, $data['content']);
+        }
     }
 }
