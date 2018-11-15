@@ -5,17 +5,25 @@ namespace TwitchBot\Command;
 use Symfony\Component\Console\{
     Command\Command,
     Input\InputInterface,
+    Input\InputArgument,
     Output\OutputInterface
 };
 
-use TwitchBot\Input\CliInput;
+use TwitchBot\Chat\Chat;
+use TwitchBot\Input\{
+    CliInput,
+    ChatInput
+};
 use TwitchBot\Processor\Processor;
 use TwitchBot\Processor\Module\{
     PokemonModule,
     PokemonNatureModule,
     PokemonTypeModule
 };
-use TwitchBot\Output\CliOutput;
+use TwitchBot\Output\{
+    CliOutput,
+    ChatOutput
+};
 
 class RunCommand extends Command
 {
@@ -25,7 +33,10 @@ class RunCommand extends Command
     protected function configure(): void {
         $this
             ->setName('twitch-bot:run')
-            ->setDescription('Runs the twitch bot');
+            ->setDescription('Runs the twitch bot')
+            ->addArgument('token', InputArgument::REQUIRED, 'OAuthToken')
+            ->addArgument('nick', InputArgument::REQUIRED, 'Nickname')
+            ->addArgument('channel', InputArgument::REQUIRED, 'Channel');
     }
 
     /**
@@ -35,8 +46,20 @@ class RunCommand extends Command
      * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output): void {
-        $in = new CliInput($input, $output, $this->getHelper('question'));
-        $out = new CliOutput($output);
+        /** @var string */
+        $token = $input->getArgument('token');
+        /** @var string */
+        $nick = $input->getArgument('nick');
+        /** @var string */
+        $channel = $input->getArgument('channel');
+
+        $chat = new Chat();
+        $chat->initializeSocket();
+        $chat->connect($nick, $token);
+        $chat->join($channel);
+
+        $in = new ChatInput($chat);
+        $out = new ChatOutput($chat, '#' . $channel);
 
         $processor = new Processor($in, $out);
         $processor
