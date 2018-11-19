@@ -3,7 +3,8 @@
         "symfony/console": "^4.0",
         "symfony/yaml": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
-        "cboden/ratchet": "^0.4.1"
+        "cboden/ratchet": "^0.4.1",
+        "textalk/websocket": "^1.2"
     },
     "autoload": {
         "psr-4": {"TwitchBot\\": "."}

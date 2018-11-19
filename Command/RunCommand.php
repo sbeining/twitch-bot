@@ -23,7 +23,8 @@ use TwitchBot\Processor\Module\{
 };
 use TwitchBot\Output\{
     CliOutput,
-    ChatOutput
+    ChatOutput,
+    WebsocketOutput
 };
 
 class RunCommand extends Command
@@ -61,8 +62,10 @@ class RunCommand extends Command
 
         $in = new ChatInput($chat);
         $out = new ChatOutput($chat, '#' . $channel);
+        $websocketOut = new WebsocketOutput('ws://127.0.0.1:8080/broadcast');
 
         $processor = new Processor($in, $out);
+        $processor->andOutput($websocketOut);
         $processor
             ->withModule(new PingPongModule())
             ->withModule(new PokemonModule())
