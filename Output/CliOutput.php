@@ -9,7 +9,11 @@ use Symfony\Component\Console\{
     Question\Question
 };
 
+use TwitchBot\Output\OutputTraits\PokemonTextOutput;
+
 class CliOutput implements OutputInterface {
+    use PokemonTextOutput;
+
     /** @var ConsoleOutput */
     private $output;
 
@@ -32,7 +36,10 @@ class CliOutput implements OutputInterface {
     public function tell(string $json): void {
         $data = json_decode($json, true);
 
-        $this->output->writeln($data['content']);
+        if (isset($data['pokemon'])) {
+            $this->output->writeln($this->transformPokemon($data));
+        } else {
+            $this->output->writeln($json);
+        }
     }
 }
-
