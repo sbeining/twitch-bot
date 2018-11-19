@@ -8,5 +8,8 @@
     },
     "autoload": {
         "psr-4": {"TwitchBot\\": "."}
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.10.5"
     }
 }

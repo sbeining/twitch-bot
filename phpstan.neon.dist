@@ -1,0 +1,10 @@
+parameters:
+  level: 7
+  bootstrap: %currentWorkingDirectory%/vendor/autoload.php
+
+  excludes_analyse:
+    - vendor
+
+  ignoreErrors:
+
+  reportUnmatchedIgnoredErrors: false
