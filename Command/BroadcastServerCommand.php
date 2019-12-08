@@ -31,7 +31,7 @@ class BroadcastServerCommand extends Command
      * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output): void {
-      $app = new Ratchet\App('127.0.0.1', 8080);
+      $app = new Ratchet\App('127.0.0.1', 8081);
       $app->route('/broadcast', new Broadcaster(), ['*']);
       $app->run();
     }
