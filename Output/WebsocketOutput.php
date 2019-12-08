@@ -3,6 +3,7 @@
 namespace TwitchBot\Output;
 
 use WebSocket\Client;
+use WebSocket\ConnectionException;
 
 class WebsocketOutput implements OutputInterface
 {
@@ -24,8 +25,11 @@ class WebsocketOutput implements OutputInterface
      * @return void
      */
     public function tell(string $json): void {
-        $client = new Client($this->url);
-        $client->send($json);
-        $client->close();
+        try {
+            $client = new Client($this->url);
+            $client->send($json);
+            $client->close();
+        } catch (ConnectionException $e) {
+        }
     }
 }
