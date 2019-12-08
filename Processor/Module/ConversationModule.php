@@ -32,18 +32,29 @@ class ConversationModule extends Module {
 
         if ($this->match("ai_yekara do the thing")) {
             return json_encode([
-                'content' => implode("\n", [
-                    "With pleasure @{$this->user} :)",
-                    "Do you want to hang out with us when we are not streaming. Consider joining our Discord: https://discord.gg/XEzEEW5",
-                    "Do you like hunting monsters? Do you think that it always comes back to dildos? Give Keldamist a visit! http://twitch.tv/keldamist",
-                    "Do you prefer monsters of the smaller variety? Do you want to have a nifty keen time? Try WhoaMattBerry! http://twitch.tv/whoamattberry",
-                    "Do you like everything from flipping houses to flat plumbers? Do you sometimes not know what's the point (and click)? Mew is there to help! http://twitch.tv/bretmwxyz",
-                    "I hope to see you next time. Same bat-time, same bat-channel ;)"
-                ])
+                'content' => implode("\n", array_merge(
+                    [ "With pleasure @{$this->user} :)" ],
+                    $this->getScheduler(),
+                    $this->getFarewell()
+                ))
             ]) ?: null;
         }
 
         return null;
+    }
+
+    private function getScheduler() {
+        return [
+            "Check out http://www.fronds.tv where you can find the discord, calendar and more!",
+        ];
+    }
+
+    private function getFarewell() {
+        if ($this->channel === '#aiyekara') {
+            return ["I hope to see you next time. Same bat-time, same bat-channel ;)"];
+        }
+
+        return [];
     }
 
     /**
