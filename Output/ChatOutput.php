@@ -37,7 +37,7 @@ class ChatOutput implements OutputInterface {
             $this->say($this->transformPokemon($data));
         } else if (isset($data['command'])) {
             $this->chat->send($data['raw']);
-        } else {
+        } else if (isset($data['content'])) {
             $lines = explode("\n", $data['content']);
             $this->multiline($lines);
         }
