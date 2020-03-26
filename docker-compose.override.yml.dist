@@ -1,5 +1,12 @@
 version: '3'
 services:
+    bot:
+        environment:
+            - TWITCH_BOT_WS=ws://127.0.0.1:8081/broadcast
+
     server:
         ports:
             - 8081:8081
+        environment:
+            - TWITCH_BOT_WS_HOSTNAME=127.0.0.1
+            - TWITCH_BOT_WS_PORT=8081

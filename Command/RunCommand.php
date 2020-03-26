@@ -65,7 +65,9 @@ class RunCommand extends Command
 
         $in = new ChatInput($chat);
         $out = new ChatOutput($chat, '#' . $channel);
-        $websocketOut = new WebsocketOutput('ws://127.0.0.1:8081/broadcast');
+
+        $wsUrl = getenv('TWITCH_BOT_WS') ?: 'ws://127.0.0.1:8081/broadcast';
+        $websocketOut = new WebsocketOutput($wsUrl);
 
         $processor = new Processor($in, $out);
         $processor->andOutput($websocketOut);
