@@ -4,8 +4,21 @@ services:
         image: elgoumrioussama/php-pthreads:latest
         volumes:
             - .:/home/www-data/twitch_bot_v2
+        depends_on:
+            - server
         entrypoint:
             - 'php'
             - '-d'
             - 'max_execution_time=0'
             - '/home/www-data/twitch_bot_v2/bin/console'
+
+    server:
+        image: elgoumrioussama/php-pthreads:latest
+        volumes:
+            - .:/home/www-data/twitch_bot_v2
+        entrypoint:
+            - 'php'
+            - '-d'
+            - 'max_execution_time=0'
+            - '/home/www-data/twitch_bot_v2/bin/console'
+            - 'twitch-bot:server'
