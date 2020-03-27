@@ -33,7 +33,7 @@ class BroadcastServerCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): void {
         $host = getenv('TWITCH_BOT_WS_HOSTNAME') ?: '127.0.0.1';
         $port = getenv('TWITCH_BOT_WS_PORT') ?: '8081';
-        $app = new Ratchet\App($host, $port);
+        $app = new Ratchet\App($host, $port, '0.0.0.0');
         $app->route('/broadcast', new Broadcaster(), ['*']);
         $app->run();
     }
