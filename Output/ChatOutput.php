@@ -27,10 +27,11 @@ class ChatOutput implements OutputInterface {
 
     /**
      * @param string $json
+     * @param string $inJson Input for reference
      *
      * @return void
      */
-    public function tell(string $json): void {
+    public function tell(string $json, string $inJson): void {
         $data = json_decode($json, true);
 
         if (isset($data['pokemon'])) {

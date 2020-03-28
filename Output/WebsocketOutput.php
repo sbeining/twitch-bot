@@ -21,13 +21,21 @@ class WebsocketOutput implements OutputInterface
 
     /**
      * @param string $json
+     * @param string $inJson Input for reference
      *
      * @return void
      */
-    public function tell(string $json): void {
+    public function tell(string $json, string $inJson): void {
+        $out = json_decode($json, true);
+        $in = json_decode($inJson, true);
+
+        if ($in['channel']) {
+            $out['channel'] = $in['channel'];
+        }
+
         try {
             $client = new Client($this->url);
-            $client->send($json);
+            $client->send(json_encode($out));
             $client->close();
         } catch (ConnectionException $e) {
         }

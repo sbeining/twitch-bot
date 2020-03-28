@@ -8,8 +8,9 @@ interface OutputInterface
      * Takes the processed json and outputs it
      *
      * @param string $json
+     * @param string $inJson Input for reference
      *
      * @return void
      */
-    public function tell(string $json): void;
+    public function tell(string $json, string $inJson): void;
 }

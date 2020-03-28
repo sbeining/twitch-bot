@@ -75,7 +75,7 @@ class Processor
             }
 
             foreach ($this->outputs as $output) {
-                $output->tell($out);
+                $output->tell($out, $in);
             }
         }
     }
