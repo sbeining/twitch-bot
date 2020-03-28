@@ -41,6 +41,7 @@ class BroadcastServerCommand extends Command
             $app = new SecureApp($host, $port, '0.0.0.0', null, [
                 'local_cert' => $sslCert,
                 'local_pk' => $sslPk,
+                'verify_peer' => false,
             ]);
         } else {
             $app = new Ratchet\App($host, $port, '0.0.0.0');
