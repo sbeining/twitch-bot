@@ -12,6 +12,7 @@ use Symfony\Component\Console\{
 use Ratchet;
 
 use TwitchBot\Websocket\Broadcaster;
+use TwitchBot\Websocket\SecureApp;
 
 class BroadcastServerCommand extends Command
 {
@@ -33,7 +34,18 @@ class BroadcastServerCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): void {
         $host = getenv('TWITCH_BOT_WS_HOSTNAME') ?: '127.0.0.1';
         $port = getenv('TWITCH_BOT_WS_PORT') ?: '8081';
-        $app = new Ratchet\App($host, $port, '0.0.0.0');
+        $sslCert = getenv('TWITCH_BOT_SSL_CERT');
+        $sslPk = getenv('TWITCH_BOT_SSL_PK');
+
+        if ($sslCert && $sslPk) {
+            $app = new SecureApp($host, $port, '0.0.0.0', null, [
+                'local_cert' => $sslCert,
+                'local_pk' => $sslPk,
+            ]);
+        } else {
+            $app = new Ratchet\App($host, $port, '0.0.0.0');
+        }
+
         $app->route('/broadcast', new Broadcaster(), ['*']);
         $app->run();
     }

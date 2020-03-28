@@ -2,7 +2,7 @@ version: '3'
 services:
     bot:
         environment:
-            - TWITCH_BOT_WS=ws://127.0.0.1:8081/broadcast
+            - TWITCH_BOT_WS=wss://127.0.0.1:8081/broadcast
 
     server:
         ports:
@@ -10,3 +10,5 @@ services:
         environment:
             - TWITCH_BOT_WS_HOSTNAME=127.0.0.1
             - TWITCH_BOT_WS_PORT=8081
+            - TWITCH_BOT_SSL_CERT=/etc/ssl/certs/fullchain.pem
+            - TWITCH_BOT_SSL_PK=/etc/ssl/private/privkey.key
