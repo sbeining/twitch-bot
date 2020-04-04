@@ -22,7 +22,8 @@ use TwitchBot\Processor\Module\{
     PokemonNatureModule,
     PokemonTypeModule,
     PhoenixWrightModule,
-    PokemonRaidModule
+    PokemonRaidModule,
+    DarkSoulsModule
 };
 use TwitchBot\Output\{
     CliOutput,
@@ -78,7 +79,8 @@ class RunCommand extends Command
             ->withModule(new PokemonNatureModule())
             ->withModule(new PokemonTypeModule())
             ->withModule(new PhoenixWrightModule())
-            ->withModule(new PokemonRaidModule());
+            ->withModule(new PokemonRaidModule())
+            ->withModule(new DarkSoulsModule());
 
         while(true) {
             $processor->process();
